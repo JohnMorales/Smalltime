@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121024205149) do
+ActiveRecord::Schema.define(:version => 20121026001340) do
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -23,6 +23,17 @@ ActiveRecord::Schema.define(:version => 20121024205149) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "time_entries", :force => true do |t|
+    t.string  "description"
+    t.decimal "duration"
+    t.date    "date"
+    t.time    "start_time"
+    t.time    "end_time"
+    t.boolean "reviewed"
+    t.boolean "synced"
+    t.integer "users_id"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -38,6 +49,8 @@ ActiveRecord::Schema.define(:version => 20121024205149) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "name"
+    t.datetime "last_time_sync"
+    t.string   "toggl_api_key"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

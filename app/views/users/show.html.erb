@@ -1,3 +1,6 @@
 <h3>User</h3>
 <p>User: <%= @user.name %></p>
 <p>Email: <%= @user.email if @user.email %></p>
+<p>Last time sync: <%= @user.last_time_sync || "Never synced." %></p>
+<p>Toggle API Key: <%= @user.toggl_api_key || "Not set." %></p>
+<%= button_to 'Get latest time entries', {:action => 'get_latest'}, :class => 'btn btn-primary' %>

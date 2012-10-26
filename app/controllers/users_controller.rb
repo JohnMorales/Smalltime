@@ -30,4 +30,9 @@ class UsersController < ApplicationController
       redirect_to users_path, :notice => "Can't delete yourself."
     end
   end
+  def get_latest
+    time_sync = TimeSync.new
+    user = User.find(params[:id])
+    entries = time_sync.get_time(user.toggl_api_key)
+  end
 end
