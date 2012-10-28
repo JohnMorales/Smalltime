@@ -1,3 +1,5 @@
+require 'timesync'
+
 class User < ActiveRecord::Base
   rolify
   # Include default devise modules. Others available are:
@@ -11,4 +13,20 @@ class User < ActiveRecord::Base
   attr_accessible :name, :email, :password, :password_confirmation, :remember_me
   attr_accessible :last_time_sync, :toggl_api_key
   has_many :time_entries
+  def get_time_entries()
+    time_sync = TimeSync.new
+    time_sheets = time_sync.get_time toggl_api_key, (last_time_sync || Date.today.prev_year), Date.today
+      time_sheets['data'].each do |f|
+      time_entry = time_entries.create
+      time_entry.description = f['description']
+      start_time = (DateTime.parse f['start'])
+      time_entry.start_time = start_time.to_time
+      time_entry.date = start_time.to_date
+      time_entry.end_time = (DateTime.parse f['stop']).to_time
+      time_entry.duration = f['duration']
+      time_entry.save!
+    end
+    last_time_sync = DateTime.now
+    save!
+  end
 end

@@ -100,4 +100,21 @@ describe User do
 
   end
 
+  describe "time entries" do
+    before(:each) do
+      @user = User.create!({ 
+              :toggl_api_key => "b00f3d412d61e93c2f2c4627e944824f",
+              :email => "user@example.com",
+              :password => "foobar",
+              :password_confirmation => "foobar"})
+    end
+    it "should create time entries" do
+      last_sync = @user.last_time_sync
+      @user.get_time_entries
+      user = User.find_by_email("user@example.com")
+      user.time_entries.size.should be > 0
+      (user.last_time_sync.nil? || user.last_time_sync  > last_sync).should be_true
+    end
+  end
+
 end

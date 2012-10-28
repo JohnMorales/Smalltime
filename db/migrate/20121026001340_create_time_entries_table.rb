@@ -8,7 +8,7 @@ class CreateTimeEntriesTable < ActiveRecord::Migration
       t.time    :end_time
       t.boolean :reviewed
       t.boolean :synced
-      t.belongs_to :users
+      t.belongs_to :user
       t.timestamps
     end
   end

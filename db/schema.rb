@@ -25,14 +25,16 @@ ActiveRecord::Schema.define(:version => 20121026001340) do
   add_index "roles", ["name"], :name => "index_roles_on_name"
 
   create_table "time_entries", :force => true do |t|
-    t.string  "description"
-    t.decimal "duration"
-    t.date    "date"
-    t.time    "start_time"
-    t.time    "end_time"
-    t.boolean "reviewed"
-    t.boolean "synced"
-    t.integer "users_id"
+    t.string   "description"
+    t.decimal  "duration"
+    t.date     "date"
+    t.time     "start_time"
+    t.time     "end_time"
+    t.boolean  "reviewed"
+    t.boolean  "synced"
+    t.integer  "user_id"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "users", :force => true do |t|

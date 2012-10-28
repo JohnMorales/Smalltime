@@ -1,4 +1,5 @@
-require './timesync'
+require '../lib/timesync'
+require 'spec_helper'
 
 describe TimeSync do
 	it "should get time from toggle" do
@@ -18,7 +19,8 @@ describe TimeSync do
 		time_sheets['data'].each do |f|
 			time_entry = DateTime.parse f['start']
 			time_entry.to_date.should eq yesterday
-			p f['description']
+#			p f['description']
+			p f.keys
 		end
 	end
 end
