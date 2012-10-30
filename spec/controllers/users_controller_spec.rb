@@ -19,6 +19,9 @@ describe UsersController do
       assigns(:user).should == @user
     end
     
+    it "should show all dates" do
+      get :show, :id => @user.id
+    end
   end
 
 end

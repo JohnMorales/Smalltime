@@ -113,7 +113,8 @@ describe User do
       @user.get_time_entries
       user = User.find_by_email("user@example.com")
       user.time_entries.size.should be > 0
-      (user.last_time_sync.nil? || user.last_time_sync  > last_sync).should be_true
+      expect(user.last_time_sync).not_to be nil?
+      (user.last_time_sync  > last_sync).should be_true unless last_sync.nil?
     end
   end
 

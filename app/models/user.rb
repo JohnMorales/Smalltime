@@ -16,7 +16,7 @@ class User < ActiveRecord::Base
   def get_time_entries()
     time_sync = TimeSync.new
     time_sheets = time_sync.get_time toggl_api_key, (last_time_sync || Date.today.prev_year), Date.today
-      time_sheets['data'].each do |f|
+    time_sheets['data'].each do |f|
       time_entry = time_entries.create
       time_entry.description = f['description']
       start_time = (DateTime.parse f['start'])
@@ -26,7 +26,7 @@ class User < ActiveRecord::Base
       time_entry.duration = f['duration']
       time_entry.save!
     end
-    last_time_sync = DateTime.now
+    self.last_time_sync = DateTime.now
     save!
   end
 end

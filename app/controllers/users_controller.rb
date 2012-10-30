@@ -31,8 +31,8 @@ class UsersController < ApplicationController
     end
   end
   def get_latest
-    time_sync = TimeSync.new
-    user = User.find(params[:id])
-    entries = time_sync.get_time(user.toggl_api_key)
+    @user = User.find(params[:id])
+    @user.get_time_entries
+    render :show
   end
 end
