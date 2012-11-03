@@ -108,7 +108,7 @@ describe User do
               :password => "foobar",
               :password_confirmation => "foobar"})
     end
-    it "should create time entries" do
+    it "should get time entries from toggle" do
       last_sync = @user.last_time_sync
       @user.get_time_entries
       user = User.find_by_email("user@example.com")
@@ -118,4 +118,14 @@ describe User do
     end
   end
 
+  describe "time dates" do
+    before do 
+      @user = FactoryGirl.create(:user_with_time_entries)
+    end
+    it "should say how much billable time per date" do
+      dates = @user.get_dates_and_durations || []
+      p dates
+      dates.count.should be > 0
+    end
+  end
 end

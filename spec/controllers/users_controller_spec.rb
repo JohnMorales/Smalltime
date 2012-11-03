@@ -21,6 +21,7 @@ describe UsersController do
     
     it "should show all dates" do
       get :show, :id => @user.id
+      assigns(:dates).count.should be 15
     end
   end
 

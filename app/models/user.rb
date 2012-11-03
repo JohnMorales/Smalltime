@@ -29,4 +29,10 @@ class User < ActiveRecord::Base
     self.last_time_sync = DateTime.now
     save!
   end
+
+  def get_dates_and_durations
+    dates = Hash.new(0)
+    time_entries.each { |entry| dates[entry.date.to_s] += entry.duration.to_f }
+    dates  
+  end
 end
